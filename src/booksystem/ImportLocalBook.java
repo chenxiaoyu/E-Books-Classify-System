@@ -1,6 +1,6 @@
 /*
- *Author:����
- *Contributer: �⿭�� ��־ѫ
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
 
 /*
@@ -22,20 +22,29 @@ import javax.swing.JOptionPane;
 
 import ForeGround.BookItem;
 import ForeGround.HandleXML;
+import ForeGround.FormChangedObservable;
 import java.util.List;
+
+//使用观察者模式来设计
+//import java.util.Observable;
+import java.util.Observer;
 /**
  *
  * @author Administrator
  */
-public class ImportLocalBook extends javax.swing.JFrame {
+public class ImportLocalBook extends javax.swing.JFrame{
     
     private BookItem bookItem;
     private HandleXML xmlHander;
-
+    private FormChangedObservable observable;
+    private static Observer observer;
     /** Creates new form ImportLocalBook */
-    public ImportLocalBook() {
+    public ImportLocalBook(Observer observer) {
         initComponents();
         bookItem = new BookItem();
+        observable = new FormChangedObservable();
+        this.observer = observer;
+        observable.addObserver(observer);
     }
 
     /** This method is called from within the constructor to
@@ -171,9 +180,11 @@ public class ImportLocalBook extends javax.swing.JFrame {
     private void jButtonChooseBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonChooseBookMouseClicked
         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        FileNameExtensionFilter filter = 
+                new FileNameExtensionFilter("支持文件类型（*.txt，*.pdf，*.doc，*.chm，*.jpg，*.gif，*.bmp）",
                 "pdf", "doc", "chm", "jpg", "gif", "bmp");
-        chooser.setFileFilter(filter);
+        //chooser.setFileFilter(filter);
+        chooser.addChoosableFileFilter(filter);
         int returnVal = chooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File selectedFile = chooser.getSelectedFile();
@@ -215,11 +226,15 @@ public class ImportLocalBook extends javax.swing.JFrame {
             bookItem.setId(newID);
             xmlHander.addNewNode(bookItem);
             this.setVisible(false);
+
+            //通知调用者，表格已经提交
+            observable.setChanged();
+            observable.notifyObservers();
         }
 
     }//GEN-LAST:event_jButtonOKMouseClicked
 
-     private void resetDialog() {
+    private void resetDialog() {
         jTextFieldBookName.setText(null);
         jTextFieldBookISBN.setText(null);
         jTextFieldBookAuthor.setText(null);
@@ -251,9 +266,8 @@ public class ImportLocalBook extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
-                new ImportLocalBook().setVisible(true);
+                new ImportLocalBook(observer).setVisible(true);
             }
         });
     }

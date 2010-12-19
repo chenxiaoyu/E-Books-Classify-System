@@ -1,7 +1,8 @@
 /*
- *Author:曾仲
- *Contributer: 吴凯发 杨光
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
+
 package ForeGround;
 import java.util.*;
 import javax.swing.table.AbstractTableModel;

@@ -1,7 +1,8 @@
 /*
- *Author:曾仲
- *Contributer: 杨光 胡程远
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
+
 /*
  * MainFrame.java
  *
@@ -9,6 +10,8 @@
  */
 
 package booksystem;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import ForeGround.BookItem;
 import ForeGround.HandleXML;
@@ -19,7 +22,7 @@ import java.util.*;
  *
  * @author Administrator
  */
-public class MainFrame extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame implements Observer{
 
     private BookTableModel bookTableModel;
     private List<BookItem> bookList;
@@ -33,6 +36,12 @@ public class MainFrame extends javax.swing.JFrame {
         bookTableModel.setBookList(bookList);
         initComponents();
         jTableBooks.updateUI();
+    }
+
+    //使用观察者模式
+    public void update(Observable o, Object arg)
+    {
+        updateBookTable();
     }
 
     private void updateBookTable()
@@ -299,7 +308,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButtonImportToLocalListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonImportToLocalListMouseClicked
         // TODO add your handling code here:
-        ImportLocalBook ilb = new ImportLocalBook();
+        ImportLocalBook ilb = new ImportLocalBook(this);
         ilb.setVisible(true);
     }//GEN-LAST:event_jButtonImportToLocalListMouseClicked
 
@@ -328,7 +337,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jMenuItemImportBookMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemImportBookMousePressed
         // TODO add your handling code here:
-        ImportLocalBook ilb = new ImportLocalBook();
+        ImportLocalBook ilb = new ImportLocalBook(this);
         ilb.setVisible(true);
     }//GEN-LAST:event_jMenuItemImportBookMousePressed
 
