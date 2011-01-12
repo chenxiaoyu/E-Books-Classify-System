@@ -1,0 +1,11 @@
+目录1：~design_docs : 		存放SDS设计(step4)
+目录2：~project_management : 	项目进度安排(step1)
+目录3：~requirement_docs ：	需求分析(step3)
+目录4：Binary~Code : 		存放了一个beta版本与最终版本的可执行文件。
+目录5：~Netbeans Project : 	存放了项目的工程文件。
+目录6：Test~Cases : 		存放了项目的测试代码
+目录7：Test~Documents : 	存放了项目的测试文档
+目录8：Create~SqlDatabase ：	创建数据库与表，添加数据的sql文件
+目录9：Src：			项目的源码包
+文件10：contributionForm.doc : 	明确了小组成员的贡献率。
+文件11：User~Manual.doc : 	用户手册
